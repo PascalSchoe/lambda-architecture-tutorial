@@ -1,0 +1,10 @@
+version: '3'
+services:
+  kafka:
+    build: .
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOO_CONNECTION: localhost:2181          
+      KAFKA_TOPICS_TO_CREATE: "thema1:1:1 thema2:1:1"
+        
