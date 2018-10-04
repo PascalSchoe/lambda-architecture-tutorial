@@ -47,3 +47,5 @@ Zookeeper kümmert sich ebenfalls darum den *Leader* unter den Brokern festzuleg
 
 - mindestens **drei Kafka-Broker**
 - mindestens eine **Partition-Replication von zwei bis drei**
+
+# Test nech
