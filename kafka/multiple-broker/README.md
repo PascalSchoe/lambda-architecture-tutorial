@@ -1,4 +1,4 @@
-#Cluster betreiben
+# Cluster betreiben
 
 Folgende Befehle sind in der angegebenen Reihenfolge auszuführen:
 ```Bash
@@ -10,3 +10,5 @@ $ ./create-topic.sh
 ``` 
 
 Anschließend kann die gewünschte Anzahl an *Consumer* und *Producer* gestartet werden, dafür werden die Scripte `start-consumer-console.sh` und `start-producer.sh` genutzt.
+
+Nun kann ein in einem geöffnetem *Producer* eine Eingabe mit `Enter` bestätigt werden und sollte anschließend in der Konsole **aller** Consumer auftauchen, dies ist der fall weil sich alle *Consumer* noch in unterschiedlichen Gruppen befinden werden die Consumer in der gleichen Gruppe gestartet so wird die 'Last' auf alle Consumer einer Gruppe aufgeteilt.
