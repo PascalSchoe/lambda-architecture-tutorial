@@ -12,6 +12,10 @@ echo "nSlaves --> [$nSlaves]"
 for (( i=1; i<=$nSlaves; i++ ))
 do
 	echo "Registriere slave$i im File './config/slaves'"
+
+	#removing old entries
+	cat /dev/null > ./config/slaves
+
 	echo "slave$i" >> ./config/slaves
 done
 
