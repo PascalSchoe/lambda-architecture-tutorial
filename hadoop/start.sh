@@ -9,13 +9,12 @@ fi
 
 echo "nSlaves --> [$nSlaves]"
 
+#removing old entries
+cat /dev/null > ./config/slaves
+
 for (( i=1; i<=$nSlaves; i++ ))
 do
 	echo "Registriere slave$i im File './config/slaves'"
-
-	#removing old entries
-	cat /dev/null > ./config/slaves
-
 	echo "slave$i" >> ./config/slaves
 done
 
@@ -36,5 +35,5 @@ do
 	docker run -itd --network="hadoopnet" --ip 172.25.0.10$j --name $slavename --hostname $slavename pschoe/hadoop
 done
 
-docker exec -ti master bash -c "hdfs namenode -format && /usr/local/hadoop/sbin/start-dfs.sh && /usr/local/hadoop/shin/start-yarn.sh"
+docker exec -ti master bash -c "hdfs namenode -format && /usr/local/hadoop/sbin/start-dfs.sh && /usr/local/hadoop/sbin/start-yarn.sh"
 docker exec -ti master bash
