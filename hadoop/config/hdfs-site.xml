@@ -3,11 +3,11 @@
 <configuration>
     <property>
         <name>dfs.namenode.name.dir</name>
-	<value>file:///root/data/nameNode</value>
+	<value>file:///root/hdfs/namenode</value>
     </property>
     <property>
         <name>dfs.namenode.data.dir</name>
-	<value>file:///root/data/dataNode</value>
+	<value>file:///root/hdfs/datanode</value>
     </property>
     <property>
         <name>dfs.replication</name>

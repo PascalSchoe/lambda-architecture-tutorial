@@ -1,3 +1,13 @@
-Host * 
+Host  localhost
+	StrictHostKeyChecking no
+
+Host 0.0.0.0
+	StrictHostKeyChecking no
+
+Host hadoop-*
+	StrictHostKeyChecking no
+	UserKnownHostsFile=/dev/null
+
+Host slave*
 	StrictHostKeyChecking no
 	UserKnownHostsFile=/dev/null
