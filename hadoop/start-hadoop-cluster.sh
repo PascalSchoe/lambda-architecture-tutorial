@@ -7,7 +7,7 @@
 
 if [ -z "$1" ]
 then
-	nSlaves=1
+	nSlaves=3
 else
 	nSlaves=$1
 fi
