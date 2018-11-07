@@ -1,0 +1,8 @@
+ {
+   "type": "record",
+   "name": "org.mitsubishi.pmcylinderquality",
+   "fields": [
+     { "Name" : "qualityId", "type" : "int"},
+	 { "Name" : "qualityName", "type" : "string"}
+   ]
+ }

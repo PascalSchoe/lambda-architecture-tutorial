@@ -1,0 +1,17 @@
+ {
+   "type": "record",
+   "name": "org.mitsubishi.pmcylinder",
+   "fields": [
+     { "Name" : "originId", "type" : "int"},
+	 { "Name" : "cylinderNr", "type" : "int"},
+	 { "Name" : "preferenceType", "type" : "string"},
+	 { "Name" : "producer", "type" : "double"},
+	 { "Name" : "rammy", "type" : "string"},
+	 { "Name" : "hardness", "type" : "int"},
+	 { "Name" : "preferenceLength", "type" : "double"},
+	 { "Name" : "bombage", "type" : "string"},
+	 { "Name" : "newDate", "type" : "string"},
+	 { "Name" : "maxO", "type" : "string"},
+	 { "Name" : "minO", "type" : "string"}
+   ]
+ }

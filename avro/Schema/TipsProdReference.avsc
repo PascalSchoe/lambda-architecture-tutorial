@@ -1,0 +1,10 @@
+ {
+   "type": "record",
+   "name": "org.mitsubishi.tipsreference",
+   "fields": [
+     { "Name" : "runcode", "type" : "int"},
+	 { "Name" : "rollnr", "type" : "int"},
+	 { "Name" : "ordecode", "type" : "string"},
+	 { "Name" : "time", "type" : "string"}
+   ]
+ }

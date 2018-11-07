@@ -1,0 +1,15 @@
+ {
+   "type": "record",
+   "name": "org.mitsubishi.pmcylinderprocedure",
+   "fields": [
+     { "Name" : "originId", "type" : "int"},
+	 { "Name" : "cylinderNr", "type" : "int"},
+	 { "Name" : "buildinDate", "type" : "string"},
+	 { "Name" : "diameter(mm)", "type" : "double"},
+	 { "Name" : "runtime", "type" : "string"},
+	 { "Name" : "quality", "type" : "int"},
+	 { "Name" : "evaluation", "type" : "string"},
+	 { "Name" : "buildoutDate", "type" : "string"},
+	 { "Name" : "buildoutReason", "type" : "string"}
+   ]
+ }

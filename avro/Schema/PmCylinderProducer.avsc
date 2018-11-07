@@ -1,0 +1,8 @@
+ {
+   "type": "record",
+   "name": "org.mitsubishi.pmcylinderproducer",
+   "fields": [
+     { "Name" : "producerId", "type" : "int"},
+	 { "Name" : "producerName", "type" : "string"}
+   ]
+ }
