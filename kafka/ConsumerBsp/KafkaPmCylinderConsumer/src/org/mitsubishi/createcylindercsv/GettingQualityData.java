@@ -1,18 +1,21 @@
 package org.mitsubishi.createcylindercsv;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericDatumWriter;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.io.DatumWriter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-
-import com.opencsv.CSVWriter;
+import org.mitsubishi.cylinder.ConstantClass;
 
 public class GettingQualityData {
 	ArrayList<QualityDTO> listQualityTemp = new ArrayList<QualityDTO>();
@@ -22,7 +25,7 @@ public class GettingQualityData {
 		try {
 			gettingData();
 			createQualityList();
-			createQualityCSV();
+			getQuality();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,19 +60,6 @@ public class GettingQualityData {
 		}
 	}
 
-	private void createQualityCSV() {
-		try (Writer writer = Files.newBufferedWriter(Paths.get(ConstantClass.PATH_QUALITY));
-
-				CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
-						CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
-			csvWriter.writeNext(new String[] { "ID", "Name" });
-			for (QualityDTO dto : listQuality)
-				csvWriter.writeNext(new String[] { dto.getId(), dto.getQuality() });
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private boolean isNew(QualityDTO qualDto) {
 		boolean temp = true;
 		if (!listQuality.isEmpty()) {
@@ -85,5 +75,28 @@ public class GettingQualityData {
 	
 	public ArrayList<QualityDTO> getListQuality() {
 		return listQuality;
+	}
+	
+	private void getQuality() {
+		try {
+			ArrayList<GenericRecord> recordList = new ArrayList<GenericRecord>();
+			Schema schema = new Schema.Parser().parse(new File(ConstantClass.SCHEMA_QUALITY));
+			for(QualityDTO dto : listQuality){
+				GenericRecord e1 = new GenericData.Record(schema);
+				e1.put("qualityId", Integer.parseInt(dto.getId()));
+				e1.put("qualityName", dto.getQuality());
+				recordList.add(e1);
+			}
+			DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<GenericRecord>(schema);
+			DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter);
+			dataFileWriter.create(schema, new File(ConstantClass.SAVE_QUALITY));
+			for (GenericRecord rec : recordList) {
+				dataFileWriter.append(rec);
+			}
+			dataFileWriter.close();
+			System.out.println("data successfully serialized");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

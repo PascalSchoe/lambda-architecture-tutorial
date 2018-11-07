@@ -1,24 +1,26 @@
 package org.mitsubishi.createcylindercsv;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericDatumWriter;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.io.DatumWriter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import com.opencsv.CSVWriter;
+import org.mitsubishi.cylinder.ConstantClass;
 
 public class GettingOriginData {
 
 	ArrayList<OriginDTO> listRollerOrigin = new ArrayList<OriginDTO>();
-	ArrayList<QualityDTO> listQuality = new ArrayList<QualityDTO>();
 
-	public GettingOriginData(ArrayList<QualityDTO> listQuality) {
+	public GettingOriginData() {
 		try {
-			this.listQuality = listQuality;
 			gettingData();
-			createOriginCSV();
+			getOrigin();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,16 +49,26 @@ public class GettingOriginData {
 			wb.close();
 		}
 	}
-
-	private void createOriginCSV() {
-		try (Writer writer = Files.newBufferedWriter(Paths.get(ConstantClass.PATH_ORIGIN));
-
-				CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
-						CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
-			csvWriter.writeNext(new String[] { "ID", "Name" });
-			for (OriginDTO dto : listRollerOrigin)
-				csvWriter.writeNext(new String[] { dto.getOriginId(), dto.getOriginName() });
-		} catch (IOException e) {
+	
+	private void getOrigin() {
+		try {
+			ArrayList<GenericRecord> recordList = new ArrayList<GenericRecord>();
+			Schema schema = new Schema.Parser().parse(new File(ConstantClass.SCHEMA_ORIGIN));
+			for(OriginDTO dto : listRollerOrigin) {
+				GenericRecord e1 = new GenericData.Record(schema);
+				e1.put("originId", Integer.parseInt(dto.getOriginId()));
+				e1.put("originName", dto.getOriginName());
+				recordList.add(e1);
+			}
+			DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<GenericRecord>(schema);
+			DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter);
+			dataFileWriter.create(schema, new File(ConstantClass.SAVE_ORIGIN));
+			for (GenericRecord rec : recordList) {
+				dataFileWriter.append(rec);
+			}
+			dataFileWriter.close();
+			System.out.println("data successfully serialized");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

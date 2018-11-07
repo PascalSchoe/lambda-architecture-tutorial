@@ -26,8 +26,6 @@ public class ConsumerCylinder {
 				System.out.printf("offset = %d, key = %s, value %s%n", cr.offset(), cr.key(), cr.value());
 			}
 			GetCSV.getCsv();
-			// Fehlt noch ein Wait o.ä. damit die CSV rechtzeitig erstellt sind
-			start();
 		}
 	}
 
@@ -44,13 +42,4 @@ public class ConsumerCylinder {
 
 		return consumer;
 	}
-
-	private static void start() {
-		GetProcedure.getProd();
-		GetCylinder.getCylinder();
-		GetOrigin.getOrigin();
-		GetProducer.getProducer();
-		GetQuality.getQuality();
-	}
-
 }

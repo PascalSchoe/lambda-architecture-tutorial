@@ -1,19 +1,21 @@
 package org.mitsubishi.createcylindercsv;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericDatumWriter;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.io.DatumWriter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-
-import com.opencsv.CSVWriter;
+import org.mitsubishi.cylinder.ConstantClass;
 
 public class GettingProducerData {
 	ArrayList<ProducerDTO> listProducerTemp = new ArrayList<ProducerDTO>();
@@ -23,7 +25,6 @@ public class GettingProducerData {
 		try {
 			gettingData();
 			createProducerList();
-			createProducerCSV();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -58,19 +59,6 @@ public class GettingProducerData {
 		}
 	}
 
-	private void createProducerCSV() {
-		try (Writer writer = Files.newBufferedWriter(Paths.get(ConstantClass.PATH_PRODUCER));
-
-				CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
-						CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
-			csvWriter.writeNext(new String[] { "ID", "Name" });
-			for (ProducerDTO dto : listProducer)
-				csvWriter.writeNext(new String[] { dto.getId(), dto.getProducer() });
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private boolean isNew(ProducerDTO qualDto) {
 		boolean temp = true;
 		if (!listProducer.isEmpty()) {
@@ -82,6 +70,29 @@ public class GettingProducerData {
 			}
 		}
 		return temp;
+	}
+	
+	public void getProducer() {
+		try {
+			ArrayList<GenericRecord> recordList = new ArrayList<GenericRecord>();
+			Schema schema = new Schema.Parser().parse(new File(ConstantClass.SCHEMA_PRODUCER));
+			for(ProducerDTO dto : listProducer) {
+				GenericRecord e1 = new GenericData.Record(schema);
+				e1.put("producerId", Integer.parseInt(dto.getId()));
+				e1.put("producerName", dto.getProducer());
+				recordList.add(e1);
+			}
+			DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<GenericRecord>(schema);
+			DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter);
+			dataFileWriter.create(schema, new File(ConstantClass.SAVE_PRODUCER));
+			for (GenericRecord rec : recordList) {
+				dataFileWriter.append(rec);
+			}
+			dataFileWriter.close();
+			System.out.println("data successfully serialized");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public ArrayList<ProducerDTO> getListProducer() {

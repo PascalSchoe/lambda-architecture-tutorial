@@ -1,8 +1,8 @@
 package org.mitsubishi.createcylindercsv;
 
-public class RollerDTO {
+public class CylinderDTO {
 	
-	private String rollerNr = "";
+	private String cylinderNr = "";
 	private String originId = "";
 	private String referenceId = "";
 	private String producerId = "";
@@ -14,7 +14,7 @@ public class RollerDTO {
 	private String rammy = "";
 	private String bombage = "";
 	
-	public RollerDTO () {
+	public CylinderDTO () {
 		
 	}
 
@@ -82,12 +82,12 @@ public class RollerDTO {
 		this.originId = originId;
 	}
 
-	public String getRollerNr() {
-		return rollerNr;
+	public String getCylinderNr() {
+		return cylinderNr;
 	}
 
-	public void setRollerNr(String rollerNr) {
-		this.rollerNr = rollerNr;
+	public void setCylinderNr(String cylinderNr) {
+		this.cylinderNr = cylinderNr;
 	}
 
 	public String getBombage() {

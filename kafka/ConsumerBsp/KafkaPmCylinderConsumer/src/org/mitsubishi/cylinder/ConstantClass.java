@@ -25,4 +25,6 @@ public class ConstantClass {
 	
 	public static final List<String> KAFKA_TOPIC = Arrays.asList("CylinderTopic");
 	public static final String KAFKA_BROKERS = "localhost:9092,localhost:9093,localhost:9094";
+	
+	public static final String PATH_EXCELROLLER = "C:/Users/m.madelung/Desktop/TestWalzen.xls";
 }

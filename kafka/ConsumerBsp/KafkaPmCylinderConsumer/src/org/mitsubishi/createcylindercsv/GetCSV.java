@@ -3,10 +3,10 @@ package org.mitsubishi.createcylindercsv;
 public class GetCSV {
 	public static void getCsv() {
 		GettingQualityData quality = new GettingQualityData();
-		GettingOriginData origin = new GettingOriginData(quality.getListQuality());
+		GettingOriginData origin = new GettingOriginData();
 		GettingProducerData producer = new GettingProducerData();
-		GettingRollerData roller = new GettingRollerData(producer.getListProducer(), quality.getListQuality(),
+		GettingCylinderData roller = new GettingCylinderData(producer.getListProducer(), quality.getListQuality(),
 				origin.getOriginList());
-		GettingOrderData order = new GettingOrderData(quality.getListQuality());
+		GettingProcedureData order = new GettingProcedureData(quality.getListQuality());
 	}
 }

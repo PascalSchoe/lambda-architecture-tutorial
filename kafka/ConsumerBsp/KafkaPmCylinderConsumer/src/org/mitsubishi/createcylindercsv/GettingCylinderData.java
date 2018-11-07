@@ -1,35 +1,36 @@
 package org.mitsubishi.createcylindercsv;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import javax.swing.text.AbstractDocument.Content;
-
+import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericDatumWriter;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.io.DatumWriter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.mitsubishi.cylinder.ConstantClass;
 
-import com.opencsv.CSVWriter;
+public class GettingCylinderData {
 
-public class GettingRollerData {
-
-	ArrayList<RollerDTO> listRoller = new ArrayList<RollerDTO>();
+	ArrayList<CylinderDTO> listCylinder = new ArrayList<CylinderDTO>();
 	ArrayList<ProducerDTO> listProducer = new ArrayList<ProducerDTO>();
 	ArrayList<QualityDTO> listQuality = new ArrayList<QualityDTO>();
-	ArrayList<OriginDTO> listRollerOrigin = new ArrayList<OriginDTO>();
+	ArrayList<OriginDTO> listCylinderOrigin = new ArrayList<OriginDTO>();
 
-	public GettingRollerData(ArrayList<ProducerDTO> listProducer, ArrayList<QualityDTO> listQuality,
-			ArrayList<OriginDTO> listRollerOrigin) {
+	public GettingCylinderData(ArrayList<ProducerDTO> listProducer, ArrayList<QualityDTO> listQuality,
+			ArrayList<OriginDTO> listCylinderOrigin) {
 		try {
 			this.listProducer = listProducer;
 			this.listQuality = listQuality;
-			this.listRollerOrigin = listRollerOrigin;
+			this.listCylinderOrigin = listCylinderOrigin;
 			for (int i = 0; i < 17; i++) {
 				gettingData(i);
 				gettingMissingData();
-				createRollerCSV();
 			}
+			getCylinder();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -47,11 +48,11 @@ public class GettingRollerData {
 				if (Methods.isRowEmpty(row, 3)) {
 					break;
 				} else {
-					RollerDTO dto = new RollerDTO();
+					CylinderDTO dto = new CylinderDTO();
 					dto.setOriginId((index + 1) + "");
-					dto.setRollerNr(Methods.cellContent(row.getCell(3)));
-					if (dto.getRollerNr().length() >= 1)
-						dto.setRollerNr(String.valueOf(dto.getRollerNr().charAt(0)));
+					dto.setCylinderNr(Methods.cellContent(row.getCell(3)));
+					if (dto.getCylinderNr().length() >= 1)
+						dto.setCylinderNr(String.valueOf(dto.getCylinderNr().charAt(0)));
 					dto.setReferenceId(setQualityId(row.getCell(4)));
 					dto.setProducerId(setProducerId(row.getCell(5)));
 					dto.setHardPJ(Methods.cellContent(row.getCell(6)));
@@ -59,7 +60,7 @@ public class GettingRollerData {
 					dto.setDate(Methods.cellContent(row.getCell(8)));
 					dto.setMaxO(Methods.cellContent(row.getCell(9)));
 					dto.setMinO(Methods.cellContent(row.getCell(10)));
-					listRoller.add(dto);
+					listCylinder.add(dto);
 				}
 			} catch (Exception e) {
 				System.out.println("Spalte leer!");
@@ -81,7 +82,7 @@ public class GettingRollerData {
 				if (Methods.isRowEmpty(row, 3)) {
 					break;
 				} else {
-					for (RollerDTO dto : listRoller) {
+					for (CylinderDTO dto : listCylinder) {
 						if (isCorrectRoller(row, dto)){
 							dto.setRammy(Methods.cellContent(row.getCell(4)));
 							dto.setBombage(Methods.cellContent(row.getCell(7)));
@@ -95,19 +96,35 @@ public class GettingRollerData {
 			wb.close();
 		}
 	}
-
-	private void createRollerCSV() {
-		try (Writer writer = Files.newBufferedWriter(Paths.get(ConstantClass.PATH_ROLLER));
-
-				CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
-						CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
-			csvWriter.writeNext(new String[] { "OriginID", "WalzenNr", "Bezugstype", "Bezug/Hersteller", "Schliffgüte/Rammy", "Härte P&J",
-					"Bezugslänge", "Bombage", "Neubezug", "MaxO", "MinO" });
-			for (RollerDTO dto : listRoller)
-				csvWriter.writeNext(new String[] { dto.getOriginId(), dto.getRollerNr(), dto.getReferenceId(),
-						dto.getProducerId(), dto.getRammy(), dto.getHardPJ(), dto.getReferenceLength(), dto.getBombage(), dto.getDate(), dto.getMaxO(),
-						dto.getMinO() });
-		} catch (IOException e) {
+	
+	private void getCylinder() {
+		try {
+			ArrayList<GenericRecord> recordList = new ArrayList<GenericRecord>();
+			Schema schema = new Schema.Parser().parse(new File(ConstantClass.SCHEMA_ROLLER));
+			for(CylinderDTO dto : listCylinder) {
+				GenericRecord e1 = new GenericData.Record(schema);
+				e1.put("originId", Integer.parseInt(dto.getOriginId()));
+				e1.put("cylinderNr", Integer.parseInt(dto.getCylinderNr()));
+				e1.put("preferenceType", Integer.parseInt(dto.getReferenceId()));
+				e1.put("producer", Integer.parseInt(dto.getOriginId()));
+				e1.put("rammy", dto.getRammy());
+				e1.put("hardness", dto.getHardPJ());
+				e1.put("preferenceLength", Double.parseDouble(dto.getReferenceLength()));
+				e1.put("bombage", dto.getBombage());
+				e1.put("newDate", dto.getDate());
+				e1.put("maxO", dto.getMaxO());
+				e1.put("minO", dto.getMinO());
+				recordList.add(e1);
+			}
+			DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<GenericRecord>(schema);
+			DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter);
+			dataFileWriter.create(schema, new File(ConstantClass.SAVE_ROLLER));
+			for (GenericRecord rec : recordList) {
+				dataFileWriter.append(rec);
+			}
+			dataFileWriter.close();
+			System.out.println("data successfully serialized");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -134,7 +151,7 @@ public class GettingRollerData {
 		return temp;
 	}
 
-	private boolean isCorrectRoller(Row row, RollerDTO dto){
+	private boolean isCorrectRoller(Row row, CylinderDTO dto){
 		 boolean temp = false;
 		 if(isCorrectReference(Methods.cellContent(row.getCell(2)), dto.getReferenceId()) 
 				 && isCorrectProducer(Methods.cellContent(row.getCell(3)), dto.getProducerId())

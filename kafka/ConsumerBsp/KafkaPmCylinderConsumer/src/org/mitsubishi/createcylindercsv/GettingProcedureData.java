@@ -1,31 +1,34 @@
 package org.mitsubishi.createcylindercsv;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericDatumWriter;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.io.DatumWriter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.mitsubishi.cylinder.ConstantClass;
 
-import com.opencsv.CSVWriter;
-
-public class GettingOrderData {
+public class GettingProcedureData {
 	ArrayList<OrderDTO> listOrder = new ArrayList<OrderDTO>();
 	ArrayList<QualityDTO> listQuality = new ArrayList<QualityDTO>();
 
-	public GettingOrderData(ArrayList<QualityDTO> listQuality) {
+	public GettingProcedureData(ArrayList<QualityDTO> listQuality) {
 		try {
 			for (int i = 0; i < 17; i++) {
 				this.listQuality = listQuality;
 				gettingData(i);
-				createOrderCSV();
+				getProd();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,7 +53,7 @@ public class GettingOrderData {
 						dto.setRollerNr(String.valueOf(dto.getRollerNr().charAt(0)));
 					//dto.setRollerNr(String.valueOf(Methods.cellContent(row.getCell(0)).charAt(0)));
 					dto.setBuildDate(Methods.cellContent(row.getCell(1)));
-					//dto.setBuildDate(Methods.cellContent(row.getCell(1)));
+					dto.setEvaluation(setQualityId(row.getCell(4)));
 					dto.setDiameter(Methods.cellContent(row.getCell(2)));
 					dto.setRollTime(Methods.cellContent(row.getCell(3)));
 					dto.setComment(Methods.cellContent(row.getCell(5)));
@@ -65,19 +68,35 @@ public class GettingOrderData {
 			wb.close();
 		}
 	}
-
-	private void createOrderCSV() {
-		try (Writer writer = Files.newBufferedWriter(Paths.get(ConstantClass.PATH_ORDER));
-
-				CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
-						CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
-			csvWriter.writeNext(new String[] { "OriginID", "WalzenNr", "Einbaudatum", "Durchm.[mm]", "Laufzeit",
-					"Qualität", "Beurteilung", "Ausbaudatum", "Grund für Ausbau" });
-			for (OrderDTO dto : listOrder)
-				csvWriter.writeNext(
-						new String[] { dto.getOriginId(), dto.getRollerNr(), dto.getBuildDate(), dto.getDiameter(),
-								dto.getRollTime(), dto.getEvaluation(), dto.getComment(), dto.getDebuildDate(), dto.getDebuildReason() });
-		} catch (IOException e) {
+	
+	private void getProd() {
+		try {
+			ArrayList<GenericRecord> recordList = new ArrayList<GenericRecord>();
+			// Schema wird eingelesen
+			Schema schema = new Schema.Parser().parse(new File(ConstantClass.SCHEMA_PROCEDURE));
+			for(OrderDTO dto : listOrder) {
+				//Daten werden eingelesen
+				GenericRecord e1 = new GenericData.Record(schema);
+				e1.put("originId", Integer.parseInt(dto.getOriginId()));
+				e1.put("cylinderNr", Integer.parseInt(dto.getRollerNr()));
+				e1.put("buildinDate", dto.getBuildDate());
+				e1.put("diameter(mm)", Double.parseDouble(dto.getDiameter()));
+				e1.put("runtime", dto.getRollTime());
+				e1.put("quality", Integer.parseInt(dto.getEvaluation()));
+				e1.put("evaluation", dto.getComment());
+				e1.put("buildoutDate", dto.getDebuildDate());
+				e1.put("buildoutReason", dto.getDebuildReason());
+				recordList.add(e1);
+			}
+			DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<GenericRecord>(schema);
+			DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(datumWriter);
+			dataFileWriter.create(schema, new File(ConstantClass.SAVE_PROCEDURE));
+			for (GenericRecord rec : recordList) {
+				dataFileWriter.append(rec);
+			}
+			dataFileWriter.close();
+			System.out.println("data successfully serialized");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
