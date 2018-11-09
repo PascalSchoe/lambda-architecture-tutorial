@@ -1,6 +1,7 @@
  {
    "type": "record",
-   "name": "org.mitsubishi.pmcylinderproducer",
+   "namespace": "org.mitsubishi.pm1.fl.cylinder",
+   "name": "CylinderProcedure",
    "fields": [
      { "Name" : "producerId", "type" : "int"},
 	 { "Name" : "producerName", "type" : "string"}

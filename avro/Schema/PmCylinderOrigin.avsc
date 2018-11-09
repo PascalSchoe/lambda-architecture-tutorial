@@ -1,6 +1,7 @@
  {
    "type": "record",
-   "name": "org.mitsubishi.pmcylinderorigin",
+   "namespace": "org.mitsubishi.pm1.fl.cylinder",
+   "name": "CylinderOrigin",
    "fields": [
      { "Name" : "originId", "type" : "int"},
 	 { "Name" : "originName", "type" : "string"}

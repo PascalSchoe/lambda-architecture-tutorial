@@ -1,12 +1,12 @@
  {
    "type": "record",
    "namespace": "org.mitsubishi.pm1.fl.cylinder",
-   "name": "Cylinder",
+   "name": "CylinderHadoop",
    "fields": [
-     { "Name" : "originId", "type" : "int"},
+     { "Name" : "origin", "type" : "string"},
 	 { "Name" : "cylinderNr", "type" : "int"},
-	 { "Name" : "preferenceType", "type" : "int"},
-	 { "Name" : "producer", "type" : "int"},
+	 { "Name" : "preferenceType", "type" : "string"},
+	 { "Name" : "producer", "type" : "string"},
 	 { "Name" : "rammy", "type" : "string"},
 	 { "Name" : "hardness", "type" : "String"},
 	 { "Name" : "preferenceLength", "type" : "double"},

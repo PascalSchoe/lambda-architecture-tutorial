@@ -1,0 +1,9 @@
+ {
+   "type": "record",
+   "namespace": "org.mitsubishi.pm1.fl.daa",
+   "name": "Pressure",
+   "fields": [
+    { "Name" : "timestamp", "type" : "string", "doc" : "DAA Zeitstempel"},
+	{ "Name" : "currentPressureHeadbox", "type" : "double", "doc" : "PM1 Stoff//Druck_Stoffaufl_Ist [bar] ()"}
+   ]
+ }

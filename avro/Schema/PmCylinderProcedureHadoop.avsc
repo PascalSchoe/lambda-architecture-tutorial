@@ -1,14 +1,14 @@
  {
    "type": "record",
    "namespace": "org.mitsubishi.pm1.fl.cylinder",
-   "name": "CylinderProcedure",
+   "name": "CylinderProcedureHadoop",
    "fields": [
-     { "Name" : "originId", "type" : "int"},
+     { "Name" : "originName", "type" : "string"},
 	 { "Name" : "cylinderNr", "type" : "int"},
 	 { "Name" : "buildinDate", "type" : "string"},
 	 { "Name" : "diameter", "type" : "double"},
 	 { "Name" : "runtime", "type" : "string"},
-	 { "Name" : "quality", "type" : "int"},
+	 { "Name" : "qualityName", "type" : "string"},
 	 { "Name" : "evaluation", "type" : "string"},
 	 { "Name" : "buildoutDate", "type" : "string"},
 	 { "Name" : "buildoutReason", "type" : "string"}
