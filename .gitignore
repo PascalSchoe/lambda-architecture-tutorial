@@ -6,6 +6,9 @@ kafka/with-docker/kafka3/
 kafka/with-docker/zk/
 target/
 **/target/
+.idea/
+.attach_pid*
+**/.idea/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
