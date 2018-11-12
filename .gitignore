@@ -1,1 +1,5 @@
 **/*.log
+./kafka/with-docker/kafka1/**/*
+./kafka/with-docker/kafka2/**/*
+./kafka/with-docker/kafka3/**/*
+./kafka/with-docker/zk/**/*

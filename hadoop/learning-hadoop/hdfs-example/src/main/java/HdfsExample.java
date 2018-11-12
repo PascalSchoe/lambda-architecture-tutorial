@@ -14,6 +14,7 @@ public class HdfsExample {
 	public static void main(String[] args) throws IOException {
 		// Hadoop Default Configuration
 		Configuration conf = new Configuration();
+		conf.set("fs.default.name", "hdfs://hadoop-master:9000");
 		
 		//Hadoop FileSystem
 		FileSystem fs = FileSystem.get(conf);
@@ -33,6 +34,12 @@ public class HdfsExample {
 			
 			// Open Configuration to read file
 			FSDataInputStream in = fs.open(filenamePath);
+			String msgIn = in.readUTF();
+			System.out.println(msgIn);
+			in.close();
+		}catch(IOException ioe){
+			System.err.println("IOException operation: " + ioe.toString());
+			System.exit(1);
 		}
 		
 

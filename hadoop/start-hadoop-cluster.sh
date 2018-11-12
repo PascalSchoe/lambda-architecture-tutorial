@@ -55,6 +55,8 @@ docker run -itd \
 	-p 9864:9864 \
 	-p 19888:19888 \
 	-p 8888:8888 \
+	--rm \
+	-v /tmp:/tmp \ 
 	pschoe/hadoop-base-image
 
 # creating slaves
