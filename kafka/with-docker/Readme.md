@@ -1,4 +1,4 @@
-# So startest du das Kafka-Cluste
+# So startest du das Kafka-Cluster
 ```bash
 $ docker-compose up
 ```
@@ -6,7 +6,7 @@ $ docker-compose up
 Docker(-Compose) startet nun für dich die, im **docker-compose.yml** beschriebenen, services. Anschließend stehen die folgenden Dienste unter Verwendung des entsprechend Ports zur Verfügung.
 
 |Service|Port|
-|---|---|
+|:---|---|
 |Broker1|9092|
 |Broker2|9093|
 |Broker3|9094|
