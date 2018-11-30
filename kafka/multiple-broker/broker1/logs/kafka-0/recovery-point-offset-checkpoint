@@ -1,5 +1,5 @@
 0
-63
+64
 my-failsafe-topic 1 24
 __consumer_offsets 32 0
 __consumer_offsets 16 0
@@ -12,6 +12,7 @@ __consumer_offsets 17 0
 __consumer_offsets 23 0
 __consumer_offsets 7 0
 my-failsafe-topic 6 12
+bernd 0 0
 __consumer_offsets 4 0
 my-failsafe-topic 8 19
 my-failsafe-topic 0 36

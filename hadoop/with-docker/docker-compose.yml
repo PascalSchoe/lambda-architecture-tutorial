@@ -1,0 +1,80 @@
+version: '3'
+        
+services:
+        namenode:
+                image: pschoe/hadoop-namenode
+                container_name: namenode
+                hostname: namenode
+                restart: always
+                ports:
+                        - '9870:9870'
+                volumes:
+                        - ./hadoop/namenode/hdfs/namenode:/hadoop/hdfs/namenode
+                        - ./shared-resources:/hadoop/shared-resources
+                environment:
+                        CLUSTER_NODES: namenode resourcemanager worker1 worker2 worker3
+
+        resourcemanager:
+                image: pschoe/hadoop-resourcemanager
+                container_name: resourcemanager
+                hostname: resourcemanager
+                restart: always
+                depends_on: 
+                        - namenode
+                volumes:
+                        - ./shared-resources:/hadoop/shared-resources
+                environment:
+                ports:
+                        - '8088:8088'
+                        - '8188:8188'
+                        - '19888:19888'
+                environment:
+                        CLUSTER_NODES: namenode resourcemanager worker1 worker2 worker3
+
+        worker1:
+                image: pschoe/hadoop-worker
+                container_name: worker1
+                hostname: worker1
+                restart: always
+                depends_on:
+                        - namenode
+                volumes:
+                        - ./hadoop/worker1/hdfs/datanode:/hadoop/hdfs/datanode
+                        - ./shared-resources:/hadoop/shared-resources
+                environment:
+                ports:
+                        - '8042:8042'
+                        - '9864:9864'
+                environment:
+                        CLUSTER_NODES: namenode resourcemanager worker1 worker2 worker3
+
+        worker2:
+                image: pschoe/hadoop-worker
+                container_name: worker2
+                hostname: worker2
+                restart: always
+                depends_on:
+                        - namenode
+                volumes:
+                        - ./hadoop/worker2/hdfs/datanode:/hadoop/hdfs/datanode
+                        - ./shared-resources:/hadoop/shared-resources
+                ports:
+                        - '9865:9864'
+                        - '8043:8042'
+                environment:
+                        CLUSTER_NODES: namenode resourcemanager worker1 worker2 worker3
+        worker3:
+                image: pschoe/hadoop-worker
+                container_name: worker3
+                hostname: worker3
+                restart: always
+                depends_on:
+                        - namenode
+                volumes:
+                        - ./hadoop/worker3/hdfs/datanode:/hadoop/hdfs/datanode
+                        - ./shared-resources:/hadoop/shared-resources
+                ports:
+                        - '9866:9864'
+                        - '8044:8042'
+                environment:
+                        CLUSTER_NODES: namenode resourcemanager worker1 worker2 worker3

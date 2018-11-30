@@ -12,11 +12,11 @@ if [[ -z "$KAFKA_PORT" ]]; then
 fi
 
 #creating topics, if there are any defined in the env '$KAFKA_TOPICS_TO_CREATE'
-$KAFKA_HOME/custom_scripts/create-topics.sh &
-unset KAFKA_TOPICS_TO_CREATE
+#$KAFKA_HOME/custom_scripts/create-topics.sh &
+#unset KAFKA_TOPICS_TO_CREATE
 
 
-$KAFKA_HOME/custom_scripts/run-zookeeper.sh &
+#$KAFKA_HOME/custom_scripts/run-zookeeper.sh &
 
 exec "$KAFKA_HOME/bin/kafka-server-start.sh" "$KAFKA_HOME/config/server.properties"
 

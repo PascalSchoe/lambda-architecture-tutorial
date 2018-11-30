@@ -1,0 +1,59 @@
+<configuration>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.address</name>
+       <value>resourcemanager:8032</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.bind-host</name>
+       <value>0.0.0.0</value>
+    </property>
+    <property>
+       <name>yarn.resourcemanager.hostname</name>
+       <value>resourcemanager</value>
+    </property>
+   <property>
+       <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+       <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    </property>
+    <property>
+  <description>Address for the Timeline server to start the RPC server.</description>
+  <name>yarn.timeline-service.address</name>
+  <value>${yarn.timeline-service.hostname}:10200</value>
+</property>
+
+<property>
+  <description>The http address of the Timeline service web application.</description>
+  <name>yarn.timeline-service.webapp.address</name>
+  <value>${yarn.timeline-service.hostname}:8188</value>
+</property>
+<property>
+  <description>The hostname of the Timeline service web application.</description>
+  <name>yarn.timeline-service.hostname</name>
+  <value>0.0.0.0</value>
+</property>
+<property>
+  <description>Indicate to ResourceManager as well as clients whether
+  history-service is enabled or not. If enabled, ResourceManager starts
+  recording historical data that Timelien service can consume. Similarly,
+  clients can redirect to the history service when applications
+  finish if this is enabled.</description>
+  <name>yarn.timeline-service.generic-application-history.enabled</name>
+  <value>true</value>
+</property>
+
+<property>
+  <description>The https address of the Timeline service web application.</description>
+  <name>yarn.timeline-service.webapp.https.address</name>
+  <value>${yarn.timeline-service.hostname}:8190</value>
+</property>
+
+<property>
+  <description>Handler thread count to serve the client RPC requests.</description>
+  <name>yarn.timeline-service.handler-thread-count</name>
+  <value>10</value>
+</property>
+</configuration>

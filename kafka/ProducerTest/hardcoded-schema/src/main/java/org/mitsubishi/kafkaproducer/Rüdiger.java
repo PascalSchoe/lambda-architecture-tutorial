@@ -18,17 +18,17 @@ import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 
-public class Rüdiger {
+public class Rï¿½diger {
 
 		private static final String TOPIC = "daa-pm1-pressure";
 		
 		public static void main(final String[] args){
 			
 			final Properties props = new Properties();
-			props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "tron:9092");
+			props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 			props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
 			props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
-			props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://tron:8081");
+			props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
 			String key = "key1";
 			KafkaProducer producer = new KafkaProducer(props);
 			try {

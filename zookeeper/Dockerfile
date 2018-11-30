@@ -1,36 +1,24 @@
-FROM ubuntu:14.04
+FROM pschoe/base-image-java8-ubuntu
 
-WORKDIR /root
-
-# Java
-RUN apt-get update && \
-    apt-get install -y openssh-server openjdk-7-jdk wget && \
-    rm -rf /var/lib/apt/lists/* && \	
-    apt-get clean
-
-
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-ENV PATH=$PATH:$JAVA_HOME/bin
+ENV ZK_HOME=/opt/zookeeper
 
 # Zookeeper
-RUN wget http://mirror.softaculous.com/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz && \
-    tar -xzvf zookeeper-3.4.13.tar.gz && \
-    mv zookeeper-3.4.13 /usr/local/zookeeper && \
-    rm zookeeper-3.4.13.tar.gz && \
-    mkdir data	
+RUN wget http://mirror.softaculous.com/apache/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz \
+ && tar -xzvf zookeeper-3.4.13.tar.gz \
+ && mv zookeeper-3.4.13 $ZK_HOME \
+ && rm zookeeper-3.4.13.tar.gz 
 
-ENV ZOOKEEPER_HOME=/usr/local/zookeeper
 
 # preinstallated configuration files
 COPY config/* /tmp/
 
-RUN mkdir $ZOOKEEPER_HOME/data && \
-    mv /tmp/zoo.cfg $ZOOKEEPER_HOME/conf
+RUN mkdir $ZK_HOME/data \
+ && mv /tmp/zoo.cfg $ZK_HOME/conf
 
-VOLUME ["$ZOOKEEPER_HOME/data"]
+VOLUME ["$ZK_HOME/data"]
 
-EXPOSE 2181
+EXPOSE 2181 2888 3888
 
-CMD ["sh", "-c", "service ssh start;$ZOOKEEPER_HOME/bin/zkServer.sh start; bash"]
+CMD ["sh", "-c", "service ssh start;$ZK_HOME/bin/zkServer.sh start; bash"]
 
 

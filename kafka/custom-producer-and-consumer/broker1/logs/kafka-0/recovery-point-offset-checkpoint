@@ -4,8 +4,8 @@ my-failsafe-topic 1 0
 my-failsafe-topic 7 0
 my-failsafe-topic 3 0
 my-failsafe-topic 6 0
-my-failsafe-topic 8 0
-my-failsafe-topic 0 0
+my-failsafe-topic 8 1
+my-failsafe-topic 0 1
 my-failsafe-topic 11 0
 my-failsafe-topic 9 0
 my-failsafe-topic 2 0

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+/etc/init.d/ssh start
+
+cp /hadoop/shared-resources/* $HADOOP_CONF_DIR/
+
+hdfs namenode -format
+hdfs --daemon start namenode
+
+# keep container running
+tail -f /dev/null

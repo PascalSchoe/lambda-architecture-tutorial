@@ -1,0 +1,17 @@
+[Unit]
+Description=Starting our bigdata infrastructure, which is done via docker-compose
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=/usr/bin/docker-compose -f ~/IdeaProjects/lambda-architecture-tutorial/hadoop/with-docker/docker-compose.yml down
+
+
+ExecStart=/usr/bin/docker-compose -f ~/IdeaProjects/lambda-architecture-tutorial/hadoop/with-docker/docker-compose.yml up -d
+ExecStop=/usr/bin/docker-compose -f ~/IdeaProjects/lambda-architecture-tutorial/hadoop/with-docker/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target
+
+
