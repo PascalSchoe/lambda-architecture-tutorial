@@ -1,1 +1,0 @@
-{"type":"record","name":"Pressure","namespace":"org.mitsubishi.pm1.fl.daa","fields":[{"name":"timestamp","type":"string","doc":"DAA Zeitstempel"},{"name":"currentPressureHeadbox","type":"double","doc":"PM1 Stoff//Druck_Stoffaufl_Ist [bar] ()"},{"name":"differencePressure5TG","type":"double","doc":"PM1 Dampf+Kondensat//Differenzdruck 5TG [bar] (6PDIC702-X)"}]}
