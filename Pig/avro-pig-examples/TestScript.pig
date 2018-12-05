@@ -6,6 +6,8 @@ REGISTER jackson-mapper-asl-1.5.5.jar
 
 WeightData = LOAD '/machines/pm/pm1/daa/input/WeightsRaw.avro' USING AvroStorage () as (timestamp:long, tankLevelB304:double, tankLevelB301:double, r2Grammage:double, r1Grammage:double);
 
+SET mapreduce.output.basename 'custom-name';
+
 STORE WeightData INTO '/machines/pm/pm1/daa/output' using AvroStorage('{
   "type": "record",
   "name": "WeightProcessed",
