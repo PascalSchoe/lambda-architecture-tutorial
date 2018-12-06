@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "name": "DimensionsRaw",
+  "doc": "This is a sample Avro schema to get you started. Please edit",
+  "namespace": "org.mitsubishi.fl.pm1.daa",
+  "fields": [
+    {"name": "timestamp",
+    "type": "long",
+    "doc": "Zeitstempel"},
+    {"name": "webWidth",
+    "type": "double",
+    "doc": "PM1 Papier//Bahnbreite [cm] (nicht ändern) () | Unit: centimeter"},
+    {"name": "tambourLength",
+    "type": "double",
+    "doc": "PM1 Papier//Tambourlänge [m] () | Unit: meter"}
+  ]
+}

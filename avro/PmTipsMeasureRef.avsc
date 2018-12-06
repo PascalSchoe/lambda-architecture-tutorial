@@ -1,0 +1,11 @@
+ {
+   "type": "record",
+   "namespace": "org.mitsubishi.pm1.fl.tips",
+   "name": "MeasurementReference",
+   "fields": [
+     { "name" : "measId", "type" : "int"},
+	 { "name" : "procCode", "type" : "string"},
+	 { "name" : "locaCode", "type" : "string"},
+	 { "name" : "propCode", "type" : "string"}
+   ]
+ }

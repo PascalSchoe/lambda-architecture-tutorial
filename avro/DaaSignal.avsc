@@ -1,0 +1,38 @@
+{
+  "type": "record",
+  "name": "SignalRaw",
+  "doc": "Signale",
+  "namespace": "org.mitsubishi.fl.pm1.daa",ö
+  "fields": [
+    {"name": "timestamp",
+    "type": "long",
+    "doc": "Zeitstempel"},
+    {"name": "precoatOff",
+    "type": "double",
+    "doc": "PM1 Stoff//Vorstrich-AUS [_1] (nicht ändern) ()| Unit:0/1"},
+    {"name": "tearFrame1,
+    "type": "double",
+    "doc": "PM1 Papier//Abriss Rahmen1 [_1] (nicht ändern) () | Unit:0/1"},
+    {"name": "tearPm1F1F4",
+    "type": "double",
+    "doc": "PM1 Alstom//Abriss PM1 F1-F4 [10-Abriss / 100-Betrieb] (Abrisssignal_an_DAA)| Unit:10/100"},
+	{"name": "moistureSensorCoaterNew",
+    "type": "double",
+    "doc": "PM1 Alstom//Feuchtesensor_Coater_neu_[LED] (Feuchtesensor_Coater_neu)| Unit:0/1"},
+	{"name": "runSignalWarmWaterPump",
+    "type": "double",
+    "doc": "PM1 Alstom//Laufmeldung_Warmwasserpumpe_[1=läuft]| Unit:0/1"},
+	{"name": "celluloseDumpPumpKFB103",
+    "type": "double",
+    "doc": "PM1 Alstom//Zellstoff_Ableerpumpe_KF_B103 (11D535-ON)| Unit:0/1"},
+	{"name": "celluloseDumpPumpLFB102",
+    "type": "double",
+    "doc": "PM1 Alstom//Zellstoff_Ableerpumpe_LF_B102 (11D505-ON)| Unit:0/1"},
+	{"name": "plungerPumpCoater",
+    "type": "double",
+    "doc": "PM1 Alstom//Tauchpumpe_Coater (13D066-ON)| Unit:0/1"},
+	{"name": "signalDuoApplied",
+    "type": "double",
+    "doc": "PM1 Alstom//Signal_DUO_angelegt_[0-1] (1357-Y11-OPN)| Unit:0/1"}
+  ]
+}

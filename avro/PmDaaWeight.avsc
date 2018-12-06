@@ -1,0 +1,12 @@
+ {
+   "type": "record",
+   "namespace": "org.mitsubishi.pm1.fl.daa",
+   "name": "Weight",
+   "fields": [
+    { "Name" : "Zeitstempel", "type" : "string"},
+	{ "Name" : "containerScales_B304", "type" : "double", "doc" : "PM1 Streichküche//Behälterwaage_B304 (WIS304_01-X)"},
+	{ "Name" : "containerScales_B301", "type" : "double", "doc" : "PM1 Streichküche//Behälterwaage_B301 (WIS301_01-X)"},
+	{ "Name" : "massPerUnitAreaR2", "type" : "double", "doc" : "PM1 Papier//R2_Flächengewicht [g/m2] ()"},
+	{ "Name" : "massPerUnitAreaR1", "type" : "double", "doc" : "PM1 Papier//R1_Flächengewicht [g/m2] ()"}
+   ]
+ }

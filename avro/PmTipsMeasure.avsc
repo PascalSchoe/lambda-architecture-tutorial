@@ -1,0 +1,13 @@
+ {
+   "type": "record",
+   "namespace": "org.mitsubishi.pm1.fl.tips",
+   "name": "Measurement",
+   "fields": [
+     { "name" : "rollNr", "type" : "string"},
+	 { "name" : "measId", "type" : "int"},
+	 { "name" : "valNr", "type" : "double"},
+	 { "name" : "aggrMin", "type" : "double"},
+	 { "name" : "aggrMax", "type" : "double"},
+	 { "name" : "date", "type" : "string"}
+   ]
+ }

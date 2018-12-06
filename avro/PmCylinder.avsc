@@ -1,0 +1,18 @@
+ {
+   "type": "record",
+   "namespace": "org.mitsubishi.fl.pm1.cylinder",
+   "name": "Cylinder",
+   "fields": [
+     { "name" : "originId", "type" : "int"},
+	 { "name" : "cylinderNr", "type" : "int"},
+	 { "name" : "preferenceType", "type" : "int"},
+	 { "name" : "producer", "type" : "int"},
+	 { "name" : "rammy", "type" : "string"},
+	 { "name" : "hardness", "type" : "string"},
+	 { "name" : "preferenceLength", "type" : "double"},
+	 { "name" : "bombage", "type" : "string"},
+	 { "name" : "newDate", "type" : "string"},
+	 { "name" : "maxO", "type" : "string"},
+	 { "name" : "minO", "type" : "string"}
+   ]
+ }

@@ -1,0 +1,29 @@
+{
+  "type": "record",
+  "name": "TambourRaw",
+  "doc": "This is a sample Avro schema to get you started. Please edit",
+  "namespace": "org.mitsubishi.fl.pm1.tips",
+  "fields": [
+    {"name": "timestamp",
+    "type": "long",
+    "doc": "Zeitstempel"},
+    {"name": "prod",
+    "type": "int",
+    "doc": "Anfertigungsnummer"},
+    {"name": "weight",
+    "type": "int",
+    "doc": "Gewicht"},
+	{"name": "sort",
+    "type": "string",
+    "doc": "Sorte"},
+	{"name": "sortKey",
+    "type": "string",
+    "doc": "Sortenschlüssel"},
+	{"name": "sortName",
+    "type": "string",
+    "doc": "Sortenname"},
+	{"name": "rollNr",
+    "type": "long",
+    "doc": "Rollennummer"}
+  ]
+}

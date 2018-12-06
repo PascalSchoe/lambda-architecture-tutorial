@@ -1,0 +1,29 @@
+{
+  "type": "record",
+  "name": "AngleDegree",
+  "doc": "This is a sample Avro schema to get you started. Please edit",
+  "namespace": "org.mitsubishi.fl.pm1.daa",
+  "fields": [
+    {"name": "timestamp",
+    "type": "long",
+    "doc": "Zeitstempel"},
+    {"name": "bladeAngleIs",
+    "type": "double",
+    "doc": "PM1 allgemein//Bladewinkel_Ist [grd] ()| Unit: degree"},
+    {"name": "bladeAngleShould",
+    "type": "double",
+    "doc": "PM1 allgemein//Bladewinkel_Soll [grd] () | Unit: degree"},
+    {"name": "coaterLoadAngle",
+    "type": "double",
+    "doc": "PM1 Alstom//Coater_Belastungswinkel_[Grad] (COA-Belastungswinkel) | Unit: degree"},
+	{"name": "coaterBasicAngle",
+    "type": "double",
+    "doc": "PM1 Alstom//Coater_Grundwinkel_[Grad] (COA-Grundwinkel) | Unit: degree"},
+	{"name": "coaterBasicAngle0",
+    "type": "double",
+    "doc": "PM1 Alstom//Coater-Grundwinkel (COA-Grundwinkel) | Unit: "},
+    {"name": "coaterLoadAngle0",
+    "type": "double",
+    "doc": "PM1 Alstom//Coater-Belastungswinkel (COA-Belastungswinkel) | Unit: "}
+  ]
+}

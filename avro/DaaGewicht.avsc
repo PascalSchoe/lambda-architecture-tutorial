@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "WeightRaw",
+  "doc": "This is a sample Avro schema to get you started. Please edit",
+  "namespace": "org.mitsubishi.fl.pm1.daa",
+  "fields": [
+    {"name": "timestamp",
+    "type": "long",
+    "doc": "Zeitstempel"},
+    {"name": "tankLevelB304",
+    "type": "double",
+    "doc": "PM1 Streichküche//Behälterwaage_B304 (WIS304_01-X) | Unit:"},
+    {"name": "tankLevelB301",
+    "type": "double",
+    "doc": "PM1 Streichküche//Behälterwaage_B301 (WIS301_01-X) | Unit: "},
+    {"name": "r2Grammage",
+    "type": "double",
+    "doc": "PM1 Papier//R2_Flächengewicht [g/m2] ()| Unit: g/m2"},
+    {"name": "r1Grammage",
+    "type": "double",
+    "doc": "PM1 Papier//R1_Flächengewicht [g/m2] | Unit: g/m2"}
+  ]
+}

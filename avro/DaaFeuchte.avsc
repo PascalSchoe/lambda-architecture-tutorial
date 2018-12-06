@@ -1,0 +1,20 @@
+{
+  "type": "record",
+  "name": "MoistureRaw",
+  "doc": "This is a sample Avro schema to get you started. Please edit",
+  "namespace": "org.mitsubishi.fl.pm1.daa",
+  "fields": [
+    {"name": "timestamp",
+    "type": "long",
+    "doc": "Zeitstempel"},
+    {"name": "infraRedMoistureSqueezer",
+    "type": "double",
+    "doc": "PM1 Papier//InfraRed_Feuchte_Presse [%] | Unit: percent"},
+	{"name": "r2Moisture",
+    "type": "double",
+    "doc": "PM1 Papier//R2_Feuchte [%] () | Unit: percent"},
+    {"name": "r1Moisture",
+    "type": "double",
+    "doc": "PM1 Papier//R1_Feuchte [%] () | Unit: percent"}
+  ]
+}

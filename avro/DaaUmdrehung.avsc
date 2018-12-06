@@ -1,0 +1,26 @@
+{
+  "type": "record",
+  "name": "Rotation",
+  "doc": "This is a sample Avro schema to get you started. Please edit",
+  "namespace": "org.mitsubishi.fl.pm1.daa",
+  "fields": [
+    {"name": "timestamp",
+    "type": "long",
+    "doc": "Zeitstempel"},
+    {"name": "poperollerSpeedIs",
+    "type": "double",
+    "doc": "PM1 Geschwindigkeiten//Poperollergeschw_Ist [m/min] () | Unit: m/min"},
+    {"name": "maschineRollerSpeedIs",
+    "type": "double",
+    "doc": "PM1 Geschwindigkeiten//Maschinengeschw_Ist [m/min] () | Unit: m/min"},
+    {"name": "rotarySpeedP194",
+    "type": "double",
+    "doc": "PM1 Alstom//P194_Drehzahl_[%] (17D015-X) | Unit: percent"},
+	{"name": "rotarySpeedP193",
+    "type": "double",
+    "doc": "PM1 Alstom//P193_Drehzahl_[%] (17D014-X) | Unit: percent"},
+    {"name": "rotarySpeedP191",
+    "type": "double",
+    "doc": "PM1 Alstom//P191_Drehzahl_[%] (17D008-X) | Unit: percent"}
+  ]
+}

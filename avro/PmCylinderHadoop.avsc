@@ -1,0 +1,18 @@
+ {
+   "type": "record",
+   "namespace": "org.mitsubishi.pm1.fl.cylinder",
+   "name": "CylinderHadoop",
+   "fields": [
+     { "name" : "originName", "type" : "string"},
+	 { "name" : "cylinderNr", "type" : "int"},
+	 { "name" : "qualityName", "type" : "string"},
+	 { "name" : "producerName", "type" : "string"},
+	 { "name" : "rammy", "type" : "string"},
+	 { "name" : "hardness", "type" : "String"},
+	 { "name" : "preferenceLength", "type" : "double"},
+	 { "name" : "bombage", "type" : "string"},
+	 { "name" : "newDate", "type" : "string"},
+	 { "name" : "maxO", "type" : "string"},
+	 { "name" : "minO", "type" : "string"}
+   ]
+ }
